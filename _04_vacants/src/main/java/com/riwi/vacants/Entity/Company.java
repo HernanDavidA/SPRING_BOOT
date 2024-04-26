@@ -20,7 +20,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Company {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -30,7 +29,6 @@ public class Company {
     private String location;
     @Column(length = 15, nullable = false)
     private String name;
-
     /*
     @OneToMany - uno a muchos Una empresa puede tener muchas vacantes
     @mappedBy Especificamos donde se guardara la informacion de la relacion
@@ -41,5 +39,4 @@ public class Company {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Vacant> vacants;
-
 }
