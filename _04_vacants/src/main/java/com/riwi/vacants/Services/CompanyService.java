@@ -16,9 +16,10 @@ import com.riwi.vacants.Services.interfaces.ICompanyService;
 import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
 import com.riwi.vacants.utils.dto.response.VacantToCompanyResponse;
+import com.riwi.vacants.utils.exceptions.idNotFoundException;
 
 import lombok.AllArgsConstructor;
-import lombok.var;
+
 
 @Service
 @AllArgsConstructor
@@ -28,8 +29,11 @@ public class CompanyService implements ICompanyService{
     private final CompanyRepository objCompanyRepository;
     @Override
     public void delete(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+
+        // Buscar la compañia a la que corresponde el id
+       Company company = this.find(id);
+       // Elimino el objeto
+       this.objCompanyRepository.delete(company);
     }
 
     @Override
@@ -41,9 +45,15 @@ public class CompanyService implements ICompanyService{
     }
 
     @Override
-    public CompanyResponse update(CompanyRequest resquest, String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public CompanyResponse update(String id, CompanyRequest resquest) {
+        // Buscamos la compañia por ID
+        Company company = this.find(id);
+
+        // Llenamos la compañia con los nuevos datos a la que vez que lo convertimos en entidad
+        Company companyUpdate = this.requestToCompany(resquest, company);
+    
+        //Guardamos la compañia actualizada y convertimos en respuesta
+        return this.entityTCompanyResponse(this.objCompanyRepository.save(companyUpdate));
     }
 
     @Override
@@ -67,7 +77,8 @@ public class CompanyService implements ICompanyService{
 
 
     private Company find(String id){
-        return this.objCompanyRepository.findById(id).orElseThrow();
+
+        return this.objCompanyRepository.findById(id).orElseThrow(()-> new idNotFoundException("company"));
     }
 
 
@@ -100,5 +111,5 @@ public class CompanyService implements ICompanyService{
         company.setVacants(new ArrayList<>());
         return company;
     }
-
+  
 }

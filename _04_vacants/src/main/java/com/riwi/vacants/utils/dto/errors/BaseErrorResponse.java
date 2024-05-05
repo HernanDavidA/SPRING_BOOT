@@ -1,0 +1,19 @@
+package com.riwi.vacants.utils.dto.errors;
+
+import java.io.Serializable;
+
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
+
+public class BaseErrorResponse implements Serializable {
+    private String status;
+    private Integer code;
+
+}

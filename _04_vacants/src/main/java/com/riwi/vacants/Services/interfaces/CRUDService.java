@@ -6,6 +6,6 @@ public interface CRUDService<RQ, RS, ID> {
 
     public void delete(ID id);
     public RS create(RQ request);
-    public RS update(RQ resquest, ID id);
+    public RS update(ID id, RQ resquest);
     public Page<RS> getAll(int page, int size);
 }

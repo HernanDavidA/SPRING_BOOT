@@ -23,11 +23,8 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(length = 40, nullable = false)
     private String contact;
-    @Column(length = 15)
     private String location;
-    @Column(length = 15, nullable = false)
     private String name;
     /*
     @OneToMany - uno a muchos Una empresa puede tener muchas vacantes
